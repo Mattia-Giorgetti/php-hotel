@@ -38,19 +38,32 @@ $hotels = [
 ];
 $parkingInput = $_GET['freePark'];
 $ratingInput = $_GET['rating'];
-if ((!empty($parkingInput)) || (!empty($ratingInput))) {
-    var_dump($parkingInput);
-    var_dump($ratingInput);
-    $filteredArray = [];
+var_dump($parkingInput);
+var_dump($ratingInput);
+$filteredArray = [];
+if (empty($parkingInput) && empty($ratingInput)) {
     foreach ($hotels as $hotel) {
-        // true & false
+        $filteredArray = $hotels;
+    }
+}
+if (!empty($parkingInput)) {
+    foreach ($hotels as $hotel) {
         if (!(($hotel['parking'] xor ($parkingInput == 'true')))) {
             $filteredArray[] = $hotel;
         }
-
     }
-    $hotels = $filteredArray;
 }
+if (!empty($ratingInput)) {
+    foreach ($hotels as $hotel) {
+        if ($ratingInput == $hotel['vote']) {
+            $filteredArray[] = $hotel;
+        }
+    }
+}
+$hotels = $filteredArray;
+
+
+
 
 
 
